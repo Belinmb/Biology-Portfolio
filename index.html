@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Biology Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .nav-btn.active {
+            background: linear-gradient(45deg, #764ba2, #667eea);
+        }
+
+        .content-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .entry-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .entry-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .entry-title {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            color: #4a5568;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .entry-date {
+            color: #718096;
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+
+        .entry-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 15px;
+            border-left: 4px solid #667eea;
+        }
+
+        .placeholder-text {
+            color: #a0aec0;
+            font-style: italic;
+            background: #f7fafc;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px dashed #cbd5e0;
+            text-align: left;
+        }
+
+        .reflection-section {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 20px;
+        }
+
+        .reflection-title {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #744210;
+            text-align: left;
+        }
+
+        .reflection-content {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            line-height: 1.8;
+        }
+
+        .bio-concept {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 4px solid #4fd1c7;
+        }
+
+        .concept-title {
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 8px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>My Biology Journey</h1>
+            <p>A Digital Portfolio of Learning and Discovery</p>
+            <p><strong>Student Name:</strong> Belinda Mbanwei| <strong>Course:</strong> BIO101 | <strong>Date:</strong> 02/08/2025</p>
+            
+            <div class="nav-buttons">
+                <button class="nav-btn active" onclick="showSection('overview')">Overview</button>
+                <button class="nav-btn" onclick="showSection('entry1')">BCP 1</button>
+                <button class="nav-btn" onclick="showSection('entry2')">BCP 2</button>
+                <button class="nav-btn" onclick="showSection('entry3')">BCP 3</button>
+                <button class="nav-btn" onclick="showSection('entry4')">BCP 4</button>
+                <button class="nav-btn" onclick="showSection('entry5')">BCP 5</button>
+                <button class="nav-btn" onclick="showSection('reflection')">Final Reflection</button>
+            </div>
+        </div>
+
+        <!-- Overview Section -->
+        <div id="overview" class="content-section active">
+            <h2>Portfolio Overview</h2>
+            <p>Welcome to my biology portfolio! This collection represents my journey through understanding biological concepts and their connections to my personal life and future goals.</p>
+            
+            <div class="entry-card">
+                <h3>Portfolio Contents:</h3>
+                <ul style="margin-left: 20px; margin-top: 15px;">
+                    <li><strong>BCP 1:</strong> The Nature of Biology - Exploring fundamental biological principles and scientific inquiry</li>
+                    <li><strong>BCP 2:</strong> Cell Structure & Division - Understanding cellular organization and reproduction processes</li>
+                    <li><strong>BCP 3:</strong> Energy Flow - Investigating metabolic pathways and energy transfer in biological systems</li>
+                    <li><strong>BCP 4:</strong> Natural Selection - Examining evolutionary processes and adaptation mechanisms</li>
+                    <li><strong>BCP 5:</strong> Ecology - Analyzing environmental relationships and ecosystem interactions</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- BCP 1 -->
+        <div id="entry1" class="content-section">
+            <div class="entry-card">
+                <div class="entry-title">BCP 1: The Nature of Biology</div>
+                <div class="entry-date">Date: 17/07/25</div>
+                <div class="entry-content">
+                    <div class="placeholder-text">
+                        <p>Your first task of your Biological Connections Portfolio will be to introduce yourself to your classmates and course instructor.  This introduction will not only serve as a way to professionally connect with others in the course, but also begin to outline your connections to the biological concepts we will explore in this course and include in your overall portfolio project.</p>
+                    
+                        <br><br>
+                        <p>Hey there! I'm Belinda Mbanwei, originally from Cameroon. I'm currently into cybersecurity because I find it super interesting. There is so much problem-solving involved, and it's constantly changing. My dream is to start my own cybersecurity firm someday, where I can help both individuals and businesses keep their digital stuff secure and stay one step ahead of security threats.
+
+                            Biology is pretty much everywhere in my life, not just in tech. Growing up, my home was full of life—greenery everywhere, colorful flowers, and all sorts of insects and birds buzzing around. Watching how nature adapts and survives always reminds me of cybersecurity; both require systems to be resilient and constantly developing to handle challenges. I also love cooking! Biology actually helps me a lot when I’m in the kitchen. Understanding how heat changes the structure of proteins or how fresh ingredients can impact health makes all the difference. I enjoy playing around with flavors, especially when making loaded fries or burgers—my favorite snacks. Plus, music is another passion of mine, and I find it fascinating how sound affects our brains, mood, and even how productive we are. Biology is at the core of that too.
+                            
+                            Even though I don’t have pets right now, I’ve always been curious about animals and how biology shapes their instincts, communication, and survival strategies. That kind of thinking is pretty similar to cybersecurity. Just like animals adapt to their environment, we need to stay ahead of threats and develop smart defenses. All in all, biology is a big part of my life, whether it’s around me, in what I enjoy doing, or helping me understand humans and tech better. As I grow in my career, I want to explore how biology and technology intersect even more so I can create secure, adaptable solutions for this ever-changing digital world.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BCP 2 -->
+        <div id="entry2" class="content-section">
+            <div class="entry-card">
+                <div class="entry-title">BCP 2: Cell Structure & Division</div>
+                <div class="entry-date">Date: 21/07/22025</div>
+                <div class="entry-content">
+                    <div class="placeholder-text">
+                        <p>1.  Choose a Specific Cell Type.
+                            <ul>
+                                <li> Select one specific cell type (e.g., neuron, red blood cell, muscle cell, pancreatic beta cell, guard cell in plants, etc.).</li>
+                                <li> Try to choose a cell that genuinely interests you or one you may not have learned much about before.</li>
+                            </ul>
+                            </br>
+                            
+                            2.  Describe the Cell.
+                           <ul> 
+                                <li> In a paragraph (at least 100 words), describe the cell:</li>
+                                <li>What is its structure and function?</li>
+                                <li>How does it contribute to the overall functioning of the organism?</li>
+                                <li>What are its unique features or adaptations?</li>
+                                <li>Include any relevant diagrams or microscopy images if available.</li>
+                            </ul>
+                            </br> 
+                            <br>
+                            3.  Make It Personal.
+                            <ul>
+                                <li> In a second paragraph (at least 100 words), connect this cell to your life:</li>
+                                <li>How does this cell impact your daily functioning, health, or well-being?</li>
+                                <li>Have you (or someone you know) experienced a health condition related to this type of cell?</li>
+                                <li>Why did you choose this cell — does it connect to your interests, career goals, or personal experiences?</li>
+                            </ul>
+                            
+                        </br>
+                        <img src="Microglial cells2.png" alt="Photo of a Microglial cells" style="max-width: 400px; height: auto; border-radius: 8px; margin: 15px 0; display: block;">
+                        <p>Microglial cells are a special type of glial cell that you find only in the central nervous system (CNS), which is basically your brain and spinal cord. 
+                           People often call them the brain’s immune cells because their main job is to keep an eye on things and spot any signs of injury, infection, or illness.
+                           These cells have small, round bodies with long branch-like extensions that constantly survey their surroundings. When they notice damage or germs, 
+                           they quickly change shape to a more amoeba-like form and jump into action, breaking things down, engulfing debris, and releasing signals to help control inflammation. 
+                           Unlike most other cells in the CNS that come from ectodermal tissue, microglia actually originate from the yolk sac during development,
+                           which makes them pretty unique compared to typical neural cells you learn about in textbooks. They’re really important for keeping the brain balanced, 
+                           cleaning up harmful proteins, and even helping shape neural connections through a process called synaptic pruning. All of this shows just how essential they are for brain health and its ability to adapt and change over time.
+                           <br>
+                            So, I picked microglial cells because they’ve got this really interesting dual role, they’re both part of the brain and part of the immune system. As someone into cybersecurity, I find it kind of parallels how these cells watch over the brain’s complex environment, almost like how a firewall or security system keeps a network safe. It’s like they’re the brain’s own security guards. On a more personal note, I’ve read about how microglia are involved in diseases like Alzheimer’s, which hits close to home because someone I know has struggled with it. When these cells go haywire or become overly active, they can cause inflammation that damages neurons, which kind of shows how important it is to catch problems early and keep things balanced. Learning about microglia helps me see both biological and digital systems in a new light, and it motivates me to do my best to protect and support them however I can.
+                           <br>
+                        </p>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BCP 3 -->
+        <div id="entry3" class="content-section">
+            <div class="entry-card">
+                <div class="entry-title">BCP 3: Energy Flow</div>
+                <div class="entry-date">Date: 01/08/2025</div>
+                <div class="entry-content">
+                    <div class="placeholder-text">
+                        Choose your favorite food—whether it’s pizza, a smoothie, tacos, or something else—and trace the biological journey it takes from raw ingredients to usable energy in your body. Your task is to connect your food’s ingredients to the processes of photosynthesis and cellular respiration.
+Write 300–400 words describing the step-by-step path your food follows to become energy.
+You may format your response as a short essay, a narrative, or a creative infographic.
+
+Be sure to include the following components:
+
+<br></br>
+1.Ingredient Origins (Photosynthesis):
+<ul>
+    <li>Identify at least one plant-based ingredient in your food.</li>
+    <li>Describe or show how that plant used photosynthesis to produce glucose (mention CO₂, water, sunlight, and chlorophyll).</li>
+    <li>Include how animals involved in the food chain (e.g., dairy, meat) indirectly rely on plants for energy.</li>
+</ul>
+<br></br>
+2.Food Processing & Consumption:
+<ul>
+    <li>Briefly explain how the food you chose is harvested, processed, cooked, and eaten.</li>
+    <li>How is the food broken down during digestion into macromolecules (carbohydrates, fats, proteins)?</li>
+</ul>
+<br></br>
+3.Cellular Respiration & Energy Use:
+<ul>
+    <li>Describe how your body uses cellular respiration (glycolysis, Krebs cycle, electron transport chain) to turn glucose or other macromolecules into ATP.</li>
+    <li>What might your body do with this energy (movement, thinking, heat, etc.)?</li>
+</ul>
+                        <br><br>
+                        <p>
+                            <b> The Biological Journey of Pizza Energy
+The Solar Foundation: Where It All Begins</b>
+<br></br>
+Every Friday night when I bite into my favorite pepperoni pizza, I'm consuming energy that began its journey 93 million miles away—in our sun. The wheat flour in the crust started as wheat plants swaying in vast fields, their leaves packed with chlorophyll molecules acting like tiny solar panels. Through photosynthesis, these plants captured sunlight energy and combined carbon dioxide from the air with water from their roots to create glucose: 6CO₂ + 6H₂O + sunlight → C₆H₁₂O₆ + 6O₂. This glucose became the foundation of the wheat kernels that would eventually become my pizza dough.
+<br></br>
+The tomatoes in the sauce followed a similar path, using photosynthesis in their green leaves to produce the sugars that made the fruit sweet and energy-rich. Even the pepperoni connects to this plant-powered chain—the pigs that became the meat spent their lives converting plant glucose from corn and soybeans into the fats and proteins in their muscle tissue.
+<br></br>
+<b>From Farm to Fork: Processing and Consumption</b>
+<br></br>
+The wheat was harvested, ground into flour, and mixed with water and yeast to create dough. The tomatoes were processed into sauce, and the milk from grass-fed cows became mozzarella cheese. When I take that first bite, my teeth break down the complex structure, but the real work begins in my digestive system. Enzymes in my saliva, stomach, and small intestine break the pizza into its component macromolecules: carbohydrates from the crust become simple sugars, fats from the cheese and pepperoni are broken into fatty acids, and proteins are reduced to amino acids.
+<br></br>
+<b>The Cellular Powerhouse: ATP Production</b>
+<br></br>
+Once these molecules enter my bloodstream, the real energy conversion begins in my cells' mitochondria—the cellular powerhouses. The glucose from the wheat undergoes cellular respiration in three main stages. First, glycolysis in the cytoplasm breaks glucose into pyruvate, producing a small amount of ATP. Next, the Krebs cycle in the mitochondria further processes these molecules, releasing carbon dioxide as a waste product. Finally, the electron transport chain uses oxygen I breathe to create the majority of ATP molecules—about 32-38 per glucose molecule.
+<br></br>
+This ATP becomes the universal energy currency of my body. Some powers the muscle contractions as I chew and digest, some fuels my brain as I savor the flavors, and some generates heat to keep my body temperature stable. In a beautiful cycle, I exhale the carbon dioxide produced by cellular respiration, returning it to the atmosphere where plants will use it again for photosynthesis, continuing this endless dance of energy transformation from sun to cell and back again.
+
+<br></br>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BCP 4 -->
+        <div id="entry4" class="content-section">
+            <div class="entry-card">
+                <div class="entry-title">BCP 4: Natural Selection</div>
+                <div class="entry-date">Date: 15/07/2025</div>
+                <div class="entry-content">
+                    <div class="placeholder-text">
+                       <b>1.  Choose a Genetic Disease or Disorder</b>
+                        <br>
+                        Select a genetically inherited disease or disorder that interests you. Examples include cystic fibrosis, Huntington’s disease, sickle cell anemia, Tay-Sachs disease, Marfan syndrome, etc. You may choose any other condition, but it must have a known genetic basis.  Try to select a disease or disorder that you find truly interesting or it can even be a condition that has affected someone you know.
+                        <br><br>
+
+                        <b>2. Find a Scholarly Article</b>
+                        <br>
+                        Use the Ivy Tech Community College library to locate one peer-reviewed scientific article related to the genetic disorder. Make sure the article is credible, current (published within the last 10 years), and relevant to your topic. Save the article and include a full citation in APA or MLA format at the end of your entry.(Instructions below show how to search for, access, and cite an article.)
+                        <br><br>
+                        <b>3.  Write Your Project Entry</b>
+                        <br>
+                        Write a 400-600 word entry that includes the following components:
+                        <br>
+                        <b>Section 1: Overview of the Disorder:</b>
+                        <ul>
+                            <li>What is the name of the disorder?</li>
+                            <li>What are the symptoms and how does it affect the body?</li>
+                            <li>What gene(s) are involved, and on what chromosome(s) are they found?</li>
+                        </ul>
+                        <br>
+                        <b>Section 2: Connection to the Central Dogma</b>
+                        <br>
+                        <ul>
+                            <li>Explain how the central dogma (DNA → RNA → Protein) relates to this disorder.</li>
+                            <li>How does a mutation in the gene disrupt protein function?</li>
+                            <li>What kind of mutation is involved (e.g., substitution, deletion, insertion)?</li>
+                        </ul>
+                        <br>
+                        <b>Section 3: Inheritance Pattern and Reflection</b>
+                        <br>
+                        <ul>
+                            <li>Describe the inheritance pattern of the disorder (e.g., autosomal dominant, recessive, X-linked).</li>
+                            <li>Is there a personal interest in this condition? Why did you choose it?</li>
+                            <li>How does understanding genetics impact your view of health, medicine, or biology?</li>
+                        </ul>
+                        Include the article citation in APA or MLA format
+                        <br><br>
+                        <b>Huntington's Disease: A Genetic Disorder Project
+                            <br>
+Section 1: Overview of the Disorder</b>
+<br>
+<p>Huntington's Disease is a progressive neurodegenerative disorder that affects movement, cognition, and emotional regulation. This devastating condition typically manifests in mid-adulthood, though juvenile and late-onset forms exist. The disease is characterized by a triad of symptoms: involuntary choreiform movements (dance-like jerky motions), cognitive decline leading to dementia, and psychiatric disturbances including depression, anxiety, and personality changes.
+    <br>
+    The physical symptoms begin subtly with minor coordination problems and gradually progress to severe movement disorders. Patients develop characteristic writhing movements, difficulty walking, and problems with speech and swallowing. Cognitive symptoms include memory loss, difficulty concentrating, and impaired judgment. As the disease progresses, patients lose the ability to walk, talk, and care for themselves, with death typically occurring 15-20 years after symptom onset.
+    <br>
+    Huntington's Disease is caused by mutations in the HTT gene (formerly called IT15), located on chromosome 4 at position 4p16.3. This gene normally produces a protein called huntingtin, which plays crucial roles in nerve cell function, though its exact mechanisms are still being researched. The mutation involves an expansion of CAG trinucleotide repeats within the gene's first exon.
+    <br>
+    <b>Section 2: Connection to the Central Dogma</b>
+    <br>
+    The central dogma of molecular biology (DNA → RNA → Protein) is directly disrupted in Huntington's Disease through a specific type of mutation. The HTT gene contains a sequence of CAG repeats that normally ranges from 10-35 repeats in healthy individuals. However, in Huntington's Disease, this sequence expands to 36 or more repeats, with higher numbers correlating with earlier disease onset.
+    <br>
+    During transcription, the expanded CAG repeats in the DNA are faithfully copied into the mRNA. When translation occurs, each CAG codon codes for the amino acid glutamine, resulting in an abnormally long polyglutamine tract within the huntingtin protein. This trinucleotide repeat expansion represents a unique type of mutation distinct from simple substitutions, deletions, or insertions.
+    <br>
+    The mutant huntingtin protein with its expanded polyglutamine tract becomes toxic to neurons, particularly in the basal ganglia and cortex. The abnormal protein tends to misfold and aggregate, forming inclusion bodies within nerve cells. These aggregates disrupt normal cellular functions, impair protein degradation pathways, and ultimately lead to neuronal death. The longer the polyglutamine tract, the more severe the protein dysfunction and earlier the disease onset.
+    <br>
+    <b>Section 3: Inheritance Pattern and Reflection</b>
+    <br>
+    Huntington's Disease follows an autosomal dominant inheritance pattern, meaning only one copy of the mutated gene is needed to cause the disease. This has profound implications for families, as each child of an affected parent has a 50% chance of inheriting the condition. Unlike recessive disorders, the disease can appear in every generation, and both males and females are equally affected.
+    <br>
+    The condition also exhibits genetic anticipation, where the CAG repeat length tends to increase when passed from parent to child, particularly through paternal transmission. This can result in earlier onset and more severe symptoms in successive generations.
+    <br>
+    I chose Huntington's Disease because it perfectly illustrates several key genetic principles we've studied: dominant inheritance, anticipation, and the direct relationship between gene structure and protein function. The disease also highlights the ethical complexities of genetic testing, as individuals can know their genetic status decades before symptoms appear.
+    <br>
+    Understanding genetics has fundamentally changed my perspective on health and medicine. It demonstrates that many conditions aren't simply "caught" but are written into our genetic code from birth. This knowledge emphasizes the importance of genetic counseling, early intervention strategies, and the potential for future gene therapies. It also highlights how a single molecular change can have devastating consequences, underscoring the precision required in genetic research and therapy development.
+    <br>
+    The study of Huntington's Disease has contributed significantly to our understanding of protein folding, neurodegeneration, and potential therapeutic targets, making it a cornerstone condition in modern genetic medicine.
+    <br>
+    <b>REFERENCE</b>
+    <br>
+    Alshehri, M. A., Alshehri, F. S., Alshehri, N. A., Alshehri, H. A., Alshehri, S. A., Alshehri, A. A., ... & Alshehri, M. M. (2023). From pathogenesis to therapeutics: A review of 150 years of Huntington's disease research. International Journal of Molecular Sciences, 24(16), 13021
+    <br>
+    Gonzalez Rojas, A. M., Martinez-Ramirez, D., Sawalha, K., Rodriguez-Violante, M., Espay, A. J., & Ferrer, A. (2023). Review of Huntington's disease: From basics to advances in diagnosis and treatment. Journal of Neurology Research, 13(2), 45-62.
+    <br>
+    <br>
+
+
+</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BCP 5 -->
+        <div id="entry5" class="content-section">
+            <div class="entry-card">
+                <div class="entry-title">BCP 5: Ecology</div>
+                <div class="entry-date">Date: 21/07/2025</div>
+                <div class="entry-content">
+                    <div class="placeholder-text">
+                      <b>1. Choose an Ecosystem</b>
+                        <br>Select a local or meaningful natural environment that you are part of or have access to. This can be:
+                        <ul>
+                            <li>Your neighborhood or backyard</li>
+                            <li>A local park or nature preserve</li>
+                            <li>A beach, forest, or garden from a vacation</li>
+                            <li>A community green space</li>
+                        </ul>
+                        <br>
+                        <b>2. Include a Photo</b>
+                        <br>Take and include one photo of the ecosystem. This can be a wide-angle shot or a close-up that captures part of the area and its biodiversity.
+                        <br>Label or describe what’s in the photo briefly.
+                        <br>
+                        <b>3. Identify At Least 5 Species</b>
+                        <br>Observe and list at least five species from your chosen ecosystem.
+                        <br>For each species, include the common name and the scientific name (genus and species, italicized). Example: Canis latrans (coyote).
+                        <br>These can include plants, animals, fungi, or other organisms.
+                        <br>
+                        <b>4. Describe a Food Chain or Food Web</b>
+                        <br>Choose at least three organisms and describe how energy flows between them. Example: Grass → Grasshopper → Bird → Hawk
+                        <br>You can describe it in paragraph form or as a simple diagram.
+                        <br>
+                        <b>5. Describe One Species Relationship</b>
+                        <br>Identify and explain one ecological interaction such as:
+                        <br>Mutualism (both benefit)
+                        <br>Predation (one organism eats another)
+                        <br>Parasitism (one benefits, one is harmed)
+                        <br>Competition (organisms vie for the same resource)
+                        <br>Use species observed in your ecosystem when possible.
+                        <br>
+                        <b>6.  Reflection: Biodiversity and Human Impact</b>
+                        <br>Why does biodiversity matter in this place?
+                        <br>How do humans positively or negatively affect this ecosystem?
+                        <br>How could this system be protected or improved?
+                        <br><br>
+                        <b>Ecosystem Analysis - Indianapolis Urban Park</b>
+                        <br>Photo and Description
+                        <br><img src="Downtown Indianapolis urban park.png" alt="Photo of a urban park" style="max-width: 400px; height: auto; border-radius: 8px; margin: 15px 0; display: block;">
+                        <br><b>Photo:</b> Downtown Indianapolis urban park showing mature deciduous trees in early fall colors, maintained grass areas, paved walking paths, and park benches.
+                        <br><b>Description:</b> This temperate urban park ecosystem features a well-established canopy of mature deciduous trees with maintained turf grass ground cover and integrated recreational infrastructure, representing a managed forest-grassland ecosystem in an urban setting.
+                        <br><b>Species Identification</b>
+                        <br>American Elm - Ulmus americana
+                        <br>Sugar Maple - Acer saccharum
+                        <br>Kentucky Bluegrass - Poa pratensis
+                        <br>American Robin - Turdus migratorius
+                        <br>Eastern Gray Squirrel - Sciurus carolinensis
+                        <br><b>Food Chain Web</b>
+                        <br><b>Primary Food Chain:</b> Kentucky Bluegrass (Poa pratensis) → Earthworms → American Robin (Turdus migratorius) → Cooper's Hawk (Accipiter cooperii)
+                        <br><b>Energy Flow:</b> Solar energy is captured by grass through photosynthesis (producer level). Earthworms consume decomposing organic matter and grass roots (primary consumer level). American robins hunt earthworms on the lawn (secondary consumer level). Cooper's hawks prey on robins and other small birds (tertiary consumer level). Energy decreases at each trophic level following the 10% rule.
+                        <br><b>Species Interaction </b>
+                        <br><b>Type:</b> Mutualism
+                        <br><b>Species Involved:</b> Sugar Maple (Acer saccharum) and Eastern Gray Squirrel (Sciurus carolinensis)
+                        <br><b>Explanation:</b> This represents a seed dispersal mutualism. Gray squirrels collect and bury maple seeds (samaras) throughout the park as winter food caches. Both species benefit: squirrels gain stored food resources, while maples achieve seed dispersal when forgotten caches germinate in new locations, reducing parent-offspring competition and expanding the tree's range.
+                        <br><b>Reflection:</b>
+                        <br><b>Biodiversity Importance:</b>This urban ecosystem provides critical services including carbon sequestration, air purification, urban heat island reduction, and stormwater management. The species diversity creates habitat corridors for urban wildlife and offers mental health benefits for city residents.
+                        <br><b>Human Influence:</b>
+                        <br><b>Positive impacts:</b> Park maintenance preserves mature trees, creates wildlife habitat, and provides green space access
+                        <br><b>Negative impacts:</b> Soil compaction from foot traffic, introduction of non-native turf species, and potential chemical inputs from maintenance
+                        <br><b>Ecosystem Importance:</b> Urban parks like this serve as biodiversity refuges in developed landscapes, supporting both native species adaptation and human well-being while demonstrating sustainable coexistence between natural systems and urban development.
+                        </b>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Final Reflection -->
+        <div id="reflection" class="content-section">
+            <div class="reflection-section">
+                <div class="reflection-title">Final Reflection</div>
+                <div class="reflection-content">
+                    <p><strong>Instructions:</strong> Write a 300-500 word reflection addressing the following areas:</p>
+                    
+                    <div class="bio-concept">
+                        <div class="concept-title">Conceptual Understanding & Personal Connection (25 points)</div>
+                        <p>Throughout this biology course, two concepts have profoundly transformed my understanding of life and my daily experiences: the nature of scientific inquiry from BCP 1 and cellular respiration from BCP 3 on Energy Flow.</p>
+                        <br><b>The Nature of Biology and Scientific Inquiry:</b>
+                        <br>When I first completed BCP 1, I viewed biology as simply memorizing facts about living things. However, learning about the scientific method and how biologists approach questions fundamentally changed my perspective. I now understand that biology is an active process of inquiry, observation, and hypothesis testing. This realization has made me more curious about everyday phenomena – when I see plants growing differently in various parts of my yard, I now think like a scientist, considering variables like sunlight exposure, soil composition, and water availability. The concept of peer review and reproducibility has also made me more critical of health claims I see on social media, teaching me to look for evidence-based sources rather than accepting information at face value.
+                        <br><b>Energy Flow and Cellular Respiration:</b>
+                        <br> BCP 3's exploration of cellular respiration (C₆H₁₂O₆ + 6O₂ → 6CO₂ + 6H₂O + ATP) completely transformed how I understand my own body and nutrition choices. Before this course, I knew exercise made me breathe harder, but I didn't understand the biochemical processes behind it. Learning that my cells are constantly breaking down glucose through glycolysis, the citric acid cycle, and the electron transport chain to produce ATP has given me a molecular-level appreciation for metabolism. This knowledge has directly influenced my eating habits – I now understand why complex carbohydrates provide sustained energy compared to simple sugars, and why adequate oxygen intake during exercise is crucial for efficient ATP production. When I feel fatigued, I can now connect it to cellular energy production rather than viewing tiredness as just a vague feeling.
+                        <br>These concepts have fundamentally changed how I view my body as a complex biological system where every breath, every meal, and every movement involves intricate molecular processes that follow scientific principles I can now understand and appreciate.
+                        </p>
+                    </div>
+
+                    <div class="bio-concept">
+                        <div class="concept-title">Themes, Growth & Future Relevance (15 points)</div>
+                        <p>
+                            <br><b>Recurring Themes Across My Portfolio:</b>Reflecting on my five BCP entries, I notice three powerful themes that emerged throughout my learning journey. First, the theme of interconnectedness appeared in every entry – from understanding how cells depend on energy flow (BCP 3) to recognizing how organisms interact within ecosystems (BCP 5) and how evolutionary pressures shape all life (BCP 4). Second, the theme of evidence-based thinking that began with scientific inquiry in BCP 1 carried through to analyzing evolutionary evidence and ecological data. Finally, the theme of scale and complexity helped me appreciate how biological processes operate from molecular levels in cellular respiration to global patterns in ecology.
+                            <br><b>My Growth as a Biology Learner:</b>At the beginning of this course, my understanding was fragmented – I saw biology topics as separate, unrelated subjects. Through these portfolio entries, I've developed what I now recognize as systems thinking. I no longer view cell division, energy flow, evolution, and ecology as isolated concepts but as interconnected processes that explain the complexity of life. My approach to learning has also evolved from passive memorization to active questioning. I find myself applying the scientific method to everyday observations and making connections between biological concepts and current events, especially regarding environmental issues and health decisions.
+                            <br><b>My Growth as a Biology Learner:</b>As someone interested in pursuing a career in environmental science, the knowledge gained through these BCPs will be fundamental to my future work. Understanding cellular energy processes will help me comprehend how environmental toxins affect organism health at the molecular level. The ecological principles from BCP 5 will directly apply to conservation efforts and environmental impact assessments. Perhaps most importantly, the scientific thinking skills developed through BCP 1 will enable me to critically evaluate research, design meaningful studies, and communicate scientific findings to diverse audiences. On a personal level, this biological literacy will guide my health decisions, help me understand medical treatments, and enable me to make informed choices about environmental sustainability in my daily life. Biology is no longer just a subject I studied – it's a lens through which I understand and interact with the world around me.
+
+                        </p>
+                    </div>
+
+                    
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>This portfolio demonstrates my growth as a biology learner and the meaningful connections between biological concepts and my personal experiences.</p>
+        </div>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Remove active class from all buttons
+            const buttons = document.querySelectorAll('.nav-btn');
+            buttons.forEach(button => {
+                button.classList.remove('active');
+            });
+
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+
+            // Add active class to clicked button
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>
